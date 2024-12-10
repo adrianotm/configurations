@@ -1,0 +1,26 @@
+output eDP-1 {
+  mode 3072x1920@120Hz
+  scale 1.75
+}
+
+output 'Dell Inc. DELL U2719D BM2TX13' {
+  mode 2560x1440@60Hz
+  scale 1
+}
+
+output 'Iiyama North America PL3288UH 1169612412873' mode 3840x2160@60Hz
+output 'Iiyama North America PL3288UH 1169612412778' mode 3840x2160@60Hz
+output 'Iiyama North America PL3288UH 1169612412872' mode 3840x2160@60Hz
+output 'Iiyama North America PL3288UH 1169612412790' mode 3840x2160@60Hz
+output 'Iiyama North America PL3288UH 1169612410134' mode 3840x2160@60Hz
+output 'Iiyama North America PL3288UH 1169612412871' mode 3840x2160@60Hz
+output 'Iiyama North America PL3288UH 1169612411751' mode 3840x2160@60Hz
+output 'Iiyama North America PL3288UH 1169612412876' mode 3840x2160@60Hz
+
+
+output 'Dell Inc. DELL SE3223Q DDCSKK3'              mode 3840x2160@60Hz
+output 'Dell Inc. DELL SE3223Q CS1SKK3'              mode 3840x2160@60Hz
+output 'Dell Inc. DELL SE3223Q D5CSKK3'              mode 3840x2160@60Hz
+output 'Dell Inc. DELL SE3223Q 7V1SKK3'              mode 3840x2160@60Hz
+output 'Dell Inc. DELL SE3223Q DH6SKK3'              mode 3840x2160@60Hz
+output 'Dell Inc. DELL SE3223Q DNRRKK3'              mode 3840x2160@60Hz
