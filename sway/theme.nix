@@ -19,8 +19,8 @@
   };
 
   fonts = {
-    normal-fontspec = "CaskaydiaCove Nerd Font:size=10;2";
-    large-fontspec = "CaskaydiaCove Nerd Font:size=15;4";
-    normal-name = "CaskaydiaCove Nerd Font";
+    normal-fontspec = "Hack Nerd Font:size=10;2";
+    large-fontspec = "Hack Nerd Font:size=15;4";
+    normal-name = "Hack Nerd Font";
   };
 }

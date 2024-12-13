@@ -21,10 +21,10 @@
   home.packages = with pkgs; [
     thefuck
     gnome-tweaks
-    pgadmin4-desktopmode
-    cascadia-code
+
     font-awesome
     nerd-fonts.caskaydia-cove
+    nerd-fonts.hack
   ];
 
   fonts.fontconfig.enable = true;

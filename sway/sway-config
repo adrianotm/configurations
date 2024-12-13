@@ -24,6 +24,11 @@ set $powermenu wofi-power
 set $screenshotmenu wofi-screenshot
 set $term foot
 
+gaps inner 5
+smart_gaps on
+
+default_border pixel 5
+default_floating_border normal 5
 ## No need to display borders on a single window
 smart_borders on
 

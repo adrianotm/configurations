@@ -102,6 +102,7 @@ bindsym $mod+Shift+grave exec swaylock -f -c 000000
     # respectively.
     bindsym $mod+b splith
     bindsym $mod+v splitv
+    bindsym $mod+c split none
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking

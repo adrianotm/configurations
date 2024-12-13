@@ -8,7 +8,7 @@
       oh-my-zsh = {
         enable = true;
         plugins = [ "thefuck" "git" "ssh-agent" ];
-        theme = "af-magic";
+        theme = "garyblessington";
 
         extraConfig = ''
           eval "$(direnv hook zsh)"
@@ -21,6 +21,7 @@
         jm = "cd ~/channable/jobmachine";
         img = "cd ~/channable/imaginator";
         fs = "cd ~/channable/feedscrubber";
+        devops = "cd ~/channable/devops";
       };
       history = {
         size = 10000;

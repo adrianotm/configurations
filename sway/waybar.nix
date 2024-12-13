@@ -114,13 +114,20 @@ in {
           "pulseaudio": {
               "scroll-step": 2,
               "format": "{icon} {volume}%",
+              "format-bluetooth": "{icon} {volume}%",
               "format-muted": "󰖁 Muted", // Icon: volume-mute
               "format-icons": {
-                  "headphones": "", // Icon: headphones
-                  "default": [" ", " "] // Icons: volume-down, volume-up
+                 "headphones": "",
+                 "handsfree": "",
+                 "headset": "",
+                 "phone": "",
+                 "portable": "",
+                 "car": "",
+                 "default": ["", ""]
               },
               "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-              "on-click-right": "alacritty --title='Sound Mixer' --command='pulsemixer'",
+              "on-click-right": "pavucontrol",
+              "scroll-step": 1,
               "tooltip": true
           },
 

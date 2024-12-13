@@ -33,13 +33,6 @@ in {
     client.focused_inactive ${c.inactive-border} ${c.inactive-bg} ${c.inactive-text}
     client.unfocused        ${c.unfocused-border} ${c.unfocused-bg} ${c.unfocused-text}
     client.urgent           ${c.urgent-border} ${c.urgent-bg} ${c.urgent-text}
-
-    default_border pixel 1
-    default_floating_border normal 1
-    hide_edge_borders none
-
-    gaps inner 5
-    smart_gaps on
   '';
 
   # I dont want to be engaging in the home-manager switching every time I need to add a new output
@@ -47,6 +40,6 @@ in {
   home.file.".config/sway/outputs.sway".source = ./sway-outputs;
 
   home.file.".config/foot/foot.ini".text = ''
-    font=${my-theme.fonts.normal-name}:size=12
+    font=CaskaydiaCove Nerd Font:size=12
   '';
 }
