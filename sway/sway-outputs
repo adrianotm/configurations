@@ -24,3 +24,5 @@ output 'Dell Inc. DELL SE3223Q D5CSKK3'              mode 3840x2160@60Hz
 output 'Dell Inc. DELL SE3223Q 7V1SKK3'              mode 3840x2160@60Hz
 output 'Dell Inc. DELL SE3223Q DH6SKK3'              mode 3840x2160@60Hz
 output 'Dell Inc. DELL SE3223Q DNRRKK3'              mode 3840x2160@60Hz
+
+output 'Philips Consumer Electronics Company PHL 246E9Q UK01916022107' mode 1920x1080@60Hz

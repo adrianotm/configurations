@@ -21,6 +21,7 @@
   home.packages = with pkgs; [
     thefuck
     gnome-tweaks
+    pgadmin4-desktopmode
 
     font-awesome
     nerd-fonts.caskaydia-cove
@@ -30,6 +31,8 @@
   fonts.fontconfig.enable = true;
 
   home.sessionVariables = { EDITOR = "nvim"; };
+
+  home.sessionPath = [ "$HOME/.local/bin" ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
