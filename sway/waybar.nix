@@ -108,7 +108,8 @@ in {
               "format-wifi": "  {essid}", // Icon: wifi
               "format-ethernet": "🖧  {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
               "format-disconnected": "⚠  Disconnected",
-              "tooltip-format": "{ifname}: {ipaddr} (signal: {signalStrength}%)"
+              "tooltip-format": "{ifname}: {ipaddr} (signal: {signalStrength}%)",
+              "on-click": "foot nmtui"
           },
 
           "pulseaudio": {

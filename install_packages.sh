@@ -7,4 +7,4 @@ sudo apt install pgadmin4-desktop
 sudo snap install postman
 
 # Sway
-sudo apt install sway swayidle swaylock sway-notification-center waybar wofi brightnessctl xdg-desktop-portal-wlr xdg-desktop-portal grimshot
+sudo apt install sway swayidle swaylock sway-notification-center waybar wofi brightnessctl xdg-desktop-portal-wlr xdg-desktop-portal grimshot wlsunset

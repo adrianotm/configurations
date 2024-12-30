@@ -21,7 +21,6 @@
   home.packages = with pkgs; [
     thefuck
     gnome-tweaks
-    pgadmin4-desktopmode
 
     font-awesome
     nerd-fonts.caskaydia-cove

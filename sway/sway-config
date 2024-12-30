@@ -6,6 +6,8 @@
 # ensuring we can screen-share.
 exec /home/adrian/.config/sway/session.sh
 
+exec wlsunset -l 52.092876 -L 5.104480
+
 ## include the default sway config
 include /etc/sway/config.d/*
 
