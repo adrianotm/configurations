@@ -1,9 +1,5 @@
 local options = {
 	formatters_by_ft = {
-		javascript = { "prettier" },
-		javascriptreact = { "prettier" },
-		typescript = { "prettier" },
-		typescriptreact = { "prettier" },
 		-- python = { "ruff_fix", "ruff_format" },
 		-- haskell = { "fourmolu" },
 		-- ihaskell = { "fourmolu" },

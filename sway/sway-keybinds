@@ -170,3 +170,8 @@ bindsym $mod+r mode "resize"
   bindsym --locked XF86AudioNext exec mpv next
   bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl s 5%+
   bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%-
+
+  bindsym $mod+Print           exec grimshot save active
+  bindsym $mod+Shift+Print exec grimshot save area
+  bindsym $mod+Mod1+Print  exec grimshot save output
+  bindsym $mod+Ctrl+Print  exec grimshot save window

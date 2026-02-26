@@ -25,25 +25,24 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-local lspconfig = require("lspconfig")
+local servers = {
+  lua_ls = {},
+  ts_ls = {},
+  pyright = {},
+  nil_ls = {},
+  rust_analyzer = {},
+  hls = {
+    filetypes = { "haskell", "lhaskell", "cabal" }
+    -- add hls-specific settings here if needed
+  }
+}
 
-local servers = { "lua_ls", "ts_ls", "pyright", "nil_ls", "rust_analyzer" }
-
--- lsps with default config
-for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup({
-		on_attach = on_attach,
-		on_init = on_init,
-		capabilities = capabilities,
-	})
+for lsp, opts in pairs(servers) do
+  opts.on_attach = on_attach
+  opts.capabilities = capabilities
+  vim.lsp.config(lsp, opts)
+  vim.lsp.enable(lsp)
 end
-
-lspconfig.hls.setup({
-	on_attach = on_attach,
-	on_init = on_init,
-	capabilities = capabilities,
-	filetypes = { "haskell", "lhaskell", "cabal" },
-})
 
 vim.diagnostic.config({
 	virtual_text = false,

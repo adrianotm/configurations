@@ -1,7 +1,16 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  nixpkgs = { config = { allowUnfree = true; }; };
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+  };
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "adrian";
@@ -19,22 +28,29 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    thefuck
     gnome-tweaks
 
     font-awesome
     nerd-fonts.caskaydia-cove
     nerd-fonts.hack
+    opencode
   ];
 
   fonts.fontconfig.enable = true;
 
-  home.sessionVariables = { EDITOR = "nvim"; };
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
 
   home.sessionPath = [ "$HOME/.local/bin" ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  imports = [ ./zsh.nix ./nvim.nix ./sway/config.nix ];
+  imports = [
+    ./zsh.nix
+    ./nvim.nix
+    ./sway/config.nix
+  ];
 }

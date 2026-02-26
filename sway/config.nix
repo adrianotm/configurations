@@ -1,9 +1,14 @@
 # Configures my entire X session but leaves GTK untouched,
 # that is better configured through lxappearance manually.
 { config, pkgs, ... }:
-let my-theme = import ./theme.nix;
-in {
-  imports = [ ./wofi.nix ./waybar.nix ];
+let
+  my-theme = import ./theme.nix;
+in
+{
+  imports = [
+    ./wofi.nix
+    ./waybar.nix
+  ];
 
   # Set up the right set of files, according to:
   # https://github.com/alebastr/sway-systemd/tree/main
@@ -11,8 +16,7 @@ in {
   home.file.".config/systemd/user/sway-session-shutdown.target".source =
     ./systemd-units/sway-session-shutdown.target;
 
-  home.file.".config/systemd/user/sway-session.target".source =
-    ./systemd-units/sway-session.target;
+  home.file.".config/systemd/user/sway-session.target".source = ./systemd-units/sway-session.target;
 
   home.file.".config/systemd/user/sway-xdg-autostart.target".source =
     ./systemd-units/sway-xdg-autostart.target;
@@ -24,22 +28,25 @@ in {
     executable = true;
   };
 
-  home.file.".config/sway/config".source = ./sway-config;
-  home.file.".config/sway/binds.sway".source = ./sway-keybinds;
-  home.file.".config/sway/theme.sway".text = let c = my-theme.colors;
-  in ''
-    # class                 border  backgr. text    indica. child_border
-    client.focused          ${c.active-border} ${c.active-bg} ${c.active-text} ${c.active-indicator}
-    client.focused_inactive ${c.inactive-border} ${c.inactive-bg} ${c.inactive-text}
-    client.unfocused        ${c.unfocused-border} ${c.unfocused-bg} ${c.unfocused-text}
-    client.urgent           ${c.urgent-border} ${c.urgent-bg} ${c.urgent-text}
-  '';
+  xdg.configFile."sway/config".source = ./sway-config;
+  xdg.configFile."sway/binds.sway".source = ./sway-keybinds;
+  xdg.configFile."sway/theme.sway".text =
+    let
+      c = my-theme.colors;
+    in
+    ''
+      # class                 border  backgr. text    indica. child_border
+      client.focused          ${c.active-border} ${c.active-bg} ${c.active-text} ${c.active-indicator}
+      client.focused_inactive ${c.inactive-border} ${c.inactive-bg} ${c.inactive-text}
+      client.unfocused        ${c.unfocused-border} ${c.unfocused-bg} ${c.unfocused-text}
+      client.urgent           ${c.urgent-border} ${c.urgent-bg} ${c.urgent-text}
+    '';
 
   # I dont want to be engaging in the home-manager switching every time I need to add a new output
   # to sway. Just make me a link! Yet, I can't et mkOutOfStoreSymlink to work yet
-  home.file.".config/sway/outputs.sway".source = ./sway-outputs;
+  xdg.configFile."sway/outputs.sway".source = ./sway-outputs;
 
-  home.file.".config/foot/foot.ini".text = ''
+  xdg.configFile."foot/foot.ini".text = ''
     font=CaskaydiaCove Nerd Font:size=12
   '';
 }

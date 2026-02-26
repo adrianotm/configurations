@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let my-theme = import ./theme.nix;
 in {
-  home.file.".config/wofi/style.css".text = ''
+  xdg.configFile."wofi/style.css".text = ''
     *{
         font-family: ${my-theme.fonts.normal-name};
         color: ${my-theme.colors.active-text};

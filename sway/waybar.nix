@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let my-theme = import ./theme.nix;
 in {
-  home.file.".config/waybar/config".text = ''
+  xdg.configFile."waybar/config".text = ''
         {
           "layer": "bottom",
           "position": "top",
@@ -210,7 +210,7 @@ in {
         }
   '';
 
-  home.file.".config/waybar/style.css".text = ''
+  xdg.configFile."waybar/style.css".text = ''
     @keyframes blink-warning {
         70% { color: white; }
         to { color: white; background-color: orange; }
