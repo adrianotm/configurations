@@ -4,11 +4,11 @@
 
 - **Update to the latest nixpkgs/home-manager:**
   ```
-nix flake update
+  nix flake update
   ```
 - **Rebuild/apply configuration:**
   ```
-home-manager switch --flake .
+  home-manager switch --flake .
   ```
 - **Add/remove packages:**
   Edit `home.nix`, then run the above switch command.

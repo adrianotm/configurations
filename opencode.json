@@ -1,0 +1,116 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "plugin": ["oh-my-opencode", "@slkiser/opencode-quota"],
+
+  "model": "github-copilot/claude-sonnet-4.6",
+  "small_model": "github-copilot/gpt-5-mini",
+  "share": "manual",
+
+  "compaction": {
+    "auto": true,
+    "prune": true
+  },
+
+  "agent": {
+    "build": {
+      "description": "Primary build agent with full tool access",
+      "mode": "primary",
+      "model": "github-copilot/claude-sonnet-4.6",
+      "steps": 40
+    },
+    "plan": {
+      "description": "Planning and analysis agent",
+      "mode": "primary",
+      "model": "github-copilot/claude-haiku-4.5"
+    },
+    "general": {
+      "description": "General-purpose subagent for multi-step tasks",
+      "mode": "subagent",
+      "model": "github-copilot/gpt-4.1",
+      "steps": 15
+    },
+    "explore": {
+      "description": "Fast read-only codebase exploration",
+      "mode": "subagent",
+      "model": "github-copilot/gpt-4.1",
+      "steps": 10
+    }
+  },
+
+  "permission": {
+    "bash": {
+      "*": "ask",
+
+      "rm*": "deny",
+      "/bin/rm*": "deny",
+      "sudo *": "deny",
+      "sh -c \"rm *\"": "deny",
+      "sh -c 'rm *'": "deny",
+      "bash -c \"rm *\"": "deny",
+      "bash -c 'rm *'": "deny",
+
+      "dd *": "deny",
+      "mkfs*": "deny",
+      "truncate *": "deny",
+      "> /dev/sd*": "deny",
+
+      "chmod *": "deny",
+      "chown *": "deny",
+      "useradd *": "deny",
+      "usermod *": "deny",
+      "groupdel *": "deny",
+      "passwd *": "deny",
+
+      "systemctl *": "deny",
+      "service *": "deny",
+      "reboot": "deny",
+      "shutdown*": "deny",
+      "poweroff": "deny",
+
+      "curl * | sh": "deny",
+      "curl * | bash": "deny",
+      "wget * | sh": "deny",
+      "wget * | bash": "deny",
+
+      "apt *": "deny",
+      "dnf *": "deny",
+      "pacman *": "deny",
+      "brew *": "deny",
+      "pip install *": "deny",
+      "npm install -g *": "deny",
+      "nix-collect-garbage *": "deny",
+
+      "mv /etc/*": "deny",
+      "mv /boot/*": "deny",
+      "mv /usr/*": "deny",
+      "mv /var/*": "deny",
+
+      "git commit*": "deny",
+      "git push*": "deny",
+      "git reset*": "deny",
+      "git rebase*": "deny",
+      "git branch -D *": "deny"
+    },
+
+    "edit": {
+      "./**": "ask",
+      "/etc/**": "deny",
+      "/boot/**": "deny",
+      "/usr/**": "deny",
+      "/var/**": "deny"
+    },
+
+    "external_directory": {
+      "./**": "ask",
+      "/etc/**": "deny",
+      "/boot/**": "deny",
+      "/usr/**": "deny",
+      "/var/**": "deny"
+    },
+
+    "webfetch": "ask",
+    "websearch": "ask",
+    "skills": "ask"
+  }
+}
