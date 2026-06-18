@@ -20,7 +20,8 @@ home-manager/
 ├── nvim/                  # Raw Lua: options.lua, mappings.lua, plugin/*.lua
 ├── sway/                  # Full Wayland session: sway, waybar, wofi, foot
 ├── opencode.json          # OpenCode agents, models, permissions (source of truth)
-├── oh-my-opencode.json    # Oh-My-OpenCode plugin config
+├── oh-my-opencode-slim.json  # oh-my-opencode-slim orchestration plugin config (active)
+├── oh-my-openagent.json   # oh-my-openagent model config (NOT in active plugin list — orphaned)
 ├── skills/                # OpenCode agent skills (SKILL.md per skill)
 └── archive/               # Legacy configs — do not import
 ```
@@ -52,6 +53,16 @@ home-manager/
 1. Create `skills/<name>/SKILL.md` with valid frontmatter (`name` must match dir name)
 2. Add `home.file.".config/opencode/skills/<name>/SKILL.md".source = ./skills/<name>/SKILL.md;` to `home.nix`
 3. `git add skills/<name>/SKILL.md` before running `home-manager switch` — flake evaluation is pure, untracked files are invisible to Nix
+
+**Removing an OpenCode plugin (full footprint):** A plugin can leave traces in up to six places. Sweep all that apply:
+1. `flake.nix` — remove the input (if it was a flake input, e.g. raw-source plugins)
+2. `flake.lock` — run `nix flake lock` to drop the removed input
+3. `home.nix` — remove the `home.file."..."` config declaration AND any `home.activation.*` block that installs/patches it. Watch for **unrelated logic colocated in the same activation block** (e.g. a shared dependency for a different plugin) — extract and keep it, don't delete it wholesale.
+4. Deployed files under `~/.config/opencode/` — activation-written files (e.g. `plugins/`, config symlinks) are NOT auto-removed; `home.file`-managed symlinks self-clean on the next switch as orphan links
+5. `~/.config/opencode/package.json` — remove any dependency the plugin added (this file is intentionally writable/unmanaged; edit with `jq`)
+6. Plugin cache + runtime data — `~/.cache/opencode/packages/<plugin>@*/` (orphaned build) and any data dir the plugin created (e.g. `~/.opencode-mem/`). **Data dirs are destructive to remove — confirm first.**
+   - `rm` is denied by `opencode.json` permissions; move discarded paths to `/tmp/opencode/` instead.
+7. Verify the plugin is gone from `opencode.json`'s `"plugin"` array, then `home-manager build` → `switch`. Also grep `AGENTS.md` for stale references.
 
 **Nix module style:** Each module uses `{ config, pkgs, ... }:` signature. Top-level `config = { ... }` block only used when needed (zsh.nix, nvim.nix). Direct attribute assignment otherwise (tmux.nix, sway/).
 

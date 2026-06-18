@@ -3,11 +3,7 @@
   config = {
     programs.neovim =
       let
-        toLuaFile = file: ''
-          lua << EOF
-          ${builtins.readFile file}
-          EOF
-        '';
+        toLuaFile = file: builtins.readFile file;
       in
       {
         enable = true;
@@ -15,6 +11,8 @@
         vimAlias = true;
         vimdiffAlias = true;
         defaultEditor = true;
+        withPython3 = true;
+        withRuby = true;
         extraPackages = with pkgs; [
           lua-language-server
           typescript-language-server
@@ -27,7 +25,7 @@
           stylua
           xclip
           haskellPackages.cabal-fmt
-          nodePackages.eslint
+          eslint
         ];
         initLua = ''
           ${builtins.readFile ./nvim/options.lua}
@@ -37,15 +35,18 @@
           cmp-nvim-lsp
           cmp-nvim-lsp-signature-help
           {
+            type = "lua";
             plugin = nvim-cmp;
             config = toLuaFile ./nvim/plugin/cmp.lua;
           }
           {
+            type = "lua";
             plugin = nvim-lspconfig;
             config = toLuaFile ./nvim/plugin/lsp.lua;
           }
           plenary-nvim
           {
+            type = "lua";
             plugin = telescope-nvim;
             config = toLuaFile ./nvim/plugin/telescope.lua;
           }
@@ -54,6 +55,7 @@
             plugin = gruvbox-material;
           }
           {
+            type = "lua";
             plugin = conform-nvim;
             config = toLuaFile ./nvim/plugin/conform.lua;
           }
@@ -65,14 +67,9 @@
 
           vim-repeat
           {
+            type = "lua";
             plugin = leap-nvim;
             config = toLuaFile ./nvim/plugin/leap.lua;
-          }
-
-          copilot-vim
-          {
-            plugin = CopilotChat-nvim;
-            config = toLuaFile ./nvim/plugin/copilot-chat.lua;
           }
         ];
       };

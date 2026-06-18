@@ -1,0 +1,56 @@
+{
+  "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
+  "preset": "default",
+  "presets": {
+    "default": {
+      "orchestrator": {
+        "model": "github-copilot/claude-opus-4.8"
+      },
+      "explorer": {
+        "model": "github-copilot/gpt-5.3-codex"
+      },
+      "oracle": {
+        "model": "github-copilot/claude-opus-4.8",
+        "variant": "xhigh"
+      },
+      "council": {
+        "model": "github-copilot/gpt-5.5"
+      },
+      "librarian": {
+        "model": "github-copilot/gpt-5.3-codex"
+      },
+      "designer": {
+        "model": "github-copilot/gemini-3.5-flash"
+      },
+      "fixer": {
+        "model": "github-copilot/gpt-5.5",
+        "variant": "low"
+      }
+    }
+  },
+  "multiplexer": {
+    "type": "tmux",
+    "layout": "main-vertical"
+  },
+  "council": {
+    "presets": {
+      "default": {
+        "alpha": {
+          "model": "github-copilot/gpt-5.4-mini"
+        },
+        "beta": {
+          "model": "github-copilot/gemini-3.1-pro"
+        },
+        "gamma": {
+          "model": "github-copilot/claude-opus-4.8"
+        }
+      }
+    }
+  },
+  "todoContinuation": {
+    "maxContinuations": 50,
+    "cooldownMs": 3000,
+    "autoEnable": false,
+    "autoEnableThreshold": 4
+  }
+}

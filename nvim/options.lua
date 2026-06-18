@@ -33,5 +33,16 @@ vim.g.html5_event_handler_attributes_complete = 1
 vim.g.css_color_names = 1
 vim.g.javascript_plugin_jsdoc = 1
 
+-- Work around foot 1.16 + nvim 0.12 kitty keyboard protocol bug (neovim#31806):
+-- foot sends both a legacy byte and a CSI u release event for CR/BS/Tab,
+-- causing each keypress to register twice. Disable the protocol entirely.
+vim.api.nvim_create_autocmd("UIEnter", {
+	once = true,
+	callback = function()
+		io.stdout:write("\x1b[<u")
+		io.stdout:flush()
+	end,
+})
+
 -- Colorscheme (centralized)
 vim.cmd("colorscheme gruvbox-material")
