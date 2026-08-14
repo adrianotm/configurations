@@ -6,6 +6,53 @@
   ...
 }:
 
+let
+  # ── RTK: Rust Token Killer ─────────────────────────────────────────────────
+  # Compresses bash/shell tool output before the model sees it (60-99% savings
+  # on git, cargo, pytest, cat, ls, etc.). The Rust binary lives in
+  # home.packages; the plugin hook is managed via home.file below.
+  # Cargo.lock vendored as ./rtk-Cargo.lock to avoid cargoHash iteration.
+  rtkSrc = pkgs.fetchFromGitHub {
+    owner = "rtk-ai";
+    repo  = "rtk";
+    rev   = "8a7dd7e5570d7744d4b6508479a3674fe8c49286";
+    hash  = "sha256-8nLJ5PVefXmoXQyw6HERfCP06C+l4I+7XLwKFNVNpew=";
+  };
+  rtk = pkgs.rustPlatform.buildRustPackage {
+    pname   = "rtk";
+    version = "0-unstable-2026-06-18";
+    src     = rtkSrc;
+    cargoLock.lockFile = ./rtk-Cargo.lock;
+    # Tests require a writable home dir and network access — both unavailable
+    # in the nix sandbox.
+    doCheck = false;
+    meta.description = "Rust Token Killer — compress LLM tool output";
+  };
+
+  # ── Caveman: terse model output ────────────────────────────────────────────
+  # Injects terse-speech mode; claims ~65% output token reduction.
+  # File-based plugin (not npm). Placed via home.file below.
+  # commands/ are copied to ~/.config/opencode/commands/ (OpenCode root).
+  cavemanSrc = pkgs.fetchFromGitHub {
+    owner = "JuliusBrussee";
+    repo  = "caveman";
+    rev   = "25d22f864ad68cc447a4cb93aefde918aa4aec9f";
+    hash  = "sha256-FbmfhFaPs/SnSZdfNdErdIUHXt1FfBzErpPpLy8kdIc=";
+  };
+  cavemanPlugin = pkgs.stdenv.mkDerivation {
+    name = "caveman-opencode-plugin";
+    src  = cavemanSrc;
+    phases = [ "unpackPhase" "installPhase" ];
+    installPhase = ''
+      mkdir -p $out/commands
+      cp src/plugins/opencode/plugin.js     $out/
+      cp src/plugins/opencode/package.json  $out/
+      cp src/hooks/caveman-config.js        $out/caveman-config.cjs
+      cp src/plugins/opencode/commands/*.md $out/commands/
+    '';
+  };
+in
+
 {
   nixpkgs = {
     config = {
@@ -37,6 +84,7 @@
     opencode
     nodejs
     gh
+    rtk
   ];
 
   fonts.fontconfig.enable = true;
@@ -69,8 +117,38 @@
   home.file.".config/opencode/oh-my-opencode-slim.json".source = ./oh-my-opencode-slim.json;
   home.file.".config/opencode/oh-my-opencode-slim.json".force = true;
 
+  # Global AGENTS.md — loaded by OpenCode on every session start (any project).
+  # Contains caveman always-on activation rule (full mode by default).
+  home.file.".config/opencode/AGENTS.md".source = ./opencode-global-agents.md;
+
   # OpenCode Agent Skills — installed globally so they are available in every project.
   home.file.".config/opencode/skills/skill-creator/SKILL.md".source = ./skills/skill-creator/SKILL.md;
+
+  # ── Token-saving plugins ───────────────────────────────────────────────────
+
+  # RTK: top-level plugins/*.ts files are auto-loaded by OpenCode — no plugin
+  # array entry needed. The binary (rtk) must be in PATH, which home.packages
+  # above ensures.
+  home.file.".config/opencode/plugins/rtk.ts".source =
+    "${rtkSrc}/hooks/opencode/rtk.ts";
+
+  # Caveman plugin dir. OpenCode does NOT auto-load nested plugins/*/plugin.js,
+  # so this is explicitly listed in opencode.json plugin array below.
+  home.file.".config/opencode/plugins/caveman".source = cavemanPlugin;
+
+  # Caveman slash commands — OpenCode discovers *.md from ~/.config/opencode/commands/.
+  home.file.".config/opencode/commands/caveman.md".source =
+    "${cavemanPlugin}/commands/caveman.md";
+  home.file.".config/opencode/commands/caveman-commit.md".source =
+    "${cavemanPlugin}/commands/caveman-commit.md";
+  home.file.".config/opencode/commands/caveman-compress.md".source =
+    "${cavemanPlugin}/commands/caveman-compress.md";
+  home.file.".config/opencode/commands/caveman-help.md".source =
+    "${cavemanPlugin}/commands/caveman-help.md";
+  home.file.".config/opencode/commands/caveman-review.md".source =
+    "${cavemanPlugin}/commands/caveman-review.md";
+  home.file.".config/opencode/commands/caveman-stats.md".source =
+    "${cavemanPlugin}/commands/caveman-stats.md";
 
   # Install oh-my-opencode-slim's bundled skills into ~/.config/opencode/skills.
   #

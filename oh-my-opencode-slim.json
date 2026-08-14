@@ -4,27 +4,28 @@
   "presets": {
     "default": {
       "orchestrator": {
-        "model": "github-copilot/claude-opus-4.8"
+        "model": "github-copilot/claude-sonnet-5",
+        "variant": "medium"
       },
       "explorer": {
-        "model": "github-copilot/gpt-5.3-codex"
+        "model": "github-copilot/gpt-5.6-luna"
       },
       "oracle": {
-        "model": "github-copilot/claude-opus-4.8",
-        "variant": "xhigh"
+        "model": "github-copilot/claude-opus-5",
+        "variant": "high"
       },
       "council": {
-        "model": "github-copilot/gpt-5.5"
+        "model": "github-copilot/gpt-5.6-sol"
       },
       "librarian": {
-        "model": "github-copilot/gpt-5.3-codex"
+        "model": "github-copilot/gpt-5.6-luna"
       },
       "designer": {
-        "model": "github-copilot/gemini-3.5-flash"
+        "model": "github-copilot/gpt-5.6-luna"
       },
       "fixer": {
-        "model": "github-copilot/gpt-5.5",
-        "variant": "low"
+        "model": "github-copilot/gpt-5.6-luna",
+        "variant": "medium"
       }
     }
   },
@@ -36,19 +37,19 @@
     "presets": {
       "default": {
         "alpha": {
-          "model": "github-copilot/gpt-5.4-mini"
+          "model": "github-copilot/gpt-5.6-luna"
         },
         "beta": {
-          "model": "github-copilot/gemini-3.1-pro"
+          "model": "github-copilot/gemini-3-flash-preview"
         },
         "gamma": {
-          "model": "github-copilot/claude-opus-4.8"
+          "model": "github-copilot/claude-sonnet-5"
         }
       }
     }
   },
   "todoContinuation": {
-    "maxContinuations": 50,
+    "maxContinuations": 10,
     "cooldownMs": 3000,
     "autoEnable": false,
     "autoEnableThreshold": 4
